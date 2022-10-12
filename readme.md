@@ -1,12 +1,13 @@
 # Filebeatの使いかた  
 業務で得た知識を含め、Filebeatの使いかたを記載していく  
 ## 目次  
-- [ElasticStackについて](#content1)  
-- [Filebeatの概要](#content2)  
-- [インストール方法](#content3)  
-- [設定ファイル](#content4)  
+[Elastic Stackについて](#content1)  
+[Filebeatの概要](#content2)  
+[インストール方法](#content3)  
+[設定ファイル](#content4)  
+[「データ取得」設定](#content5)  
 
-<h2 id="content1">ElasticStackについて</h2>  
+<h2 id="content1">Elastic Stackについて</h2>  
 Elastic社が提供しているプロダクトは大きく4つ  
 
 - Elasticsearch  
@@ -44,9 +45,7 @@ Filebeatの機能は大きく3つある
 また、「データ」とは、ログのデータのことを指す（業務でログデータを扱っていたため）。
 
 <h2 id="content3">インストール方法</h2>  
-インストール方法といっても、様々な方法がある。
-
-[（公式リファレンス）](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html)   
+インストール方法といっても、様々な方法がある。[（公式リファレンス）](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html)   
 
 また、WindowsやLinuxなど様々なOSにインストールもできる  
 (Filebeatの参考サイトを見ていると、LinuxでFilebeatを使っているのをよく見る)  
@@ -54,13 +53,44 @@ Filebeatの機能は大きく3つある
 ※VMWareで用意する予定であるが、自分のノートPCのメモリが8Gのため、厳しい、、、  
 
 <h2 id="content4">設定ファイル</h2>  
+
 インストールを行うと、/etc/filebeat/フォルダ下にfilebeat.ymlがある。  
+
 基本的に、「データ取得」「データ送信」の設定はこのファイルで行う。  
 
 基本的にはであるが、Filebeat.ymlで設定できることは「データ取得」「データ送信」に限らずめちゃめちゃある→https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html  
 
 ありすぎて、説明しきれないので、ひとまず「データ取得」「データ送信」に絞って説明する。  
 
+<h2 id="content5">「データ取得」設定</h2>  
+
+filebeat.ymlのfilebeat.inputs部分が「データ取得」に関する設定である  
+filebeat.ymlのデフォルトは以下のようになっている。  
+（コメント部分が多いため、コメント部分を省略する）  
+
+```yaml
+filebeat.inputs:
+
+- type: filestream
+
+  # Unique ID among all inputs, an ID is required.
+  id: my-filestream-id
+
+  # Change to true to enable this input configuration.
+  enabled: false
+
+  # Paths that should be crawled and fetched. Glob based paths.
+  paths:
+    - /var/log/*.log
+    #- c:\programdata\elasticsearch\logs\*
+```
+
+上記の説明があるように、「filebeat.inputs」部分でデータ取得に関する設定を行う。  
+<br>  
+「type: filestream」で入力になるものを決める。  
+filestreamの場合は、指定したフォルダから指定したファイルを取得する設定になる。  
+その下の「my-filestream-id」「enabled: false」「paths:」の設定はtypeが変われば変更される。   
+<br>
 
 
 
