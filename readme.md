@@ -45,17 +45,20 @@ Filebeatの機能は大きく3つある
 
 <h2 id="content3">インストール方法</h2>  
 インストール方法といっても、様々な方法がある。
+
 [（公式リファレンス）](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html)   
+
 また、WindowsやLinuxなど様々なOSにインストールもできる  
 (Filebeatの参考サイトを見ていると、LinuxでFilebeatを使っているのをよく見る)  
-
 今回はCentOS（Linux）へのインストールを行う。  
 ※VMWareで用意する予定であるが、自分のノートPCのメモリが8Gのため、厳しい、、、  
 
 <h2 id="content4">設定ファイル</h2>  
 インストールを行うと、/etc/filebeat/フォルダ下にfilebeat.ymlがある。  
 基本的に、「データ取得」「データ送信」の設定はこのファイルで行う。  
+
 基本的にはであるが、Filebeat.ymlで設定できることは「データ取得」「データ送信」に限らずめちゃめちゃある→https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html  
+
 ありすぎて、説明しきれないので、ひとまず「データ取得」「データ送信」に絞って説明する。  
 
 
