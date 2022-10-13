@@ -55,9 +55,7 @@ Filebeatの機能は大きく3つある
 <h2 id="content4">設定ファイル</h2>  
 
 インストールを行うと、/etc/filebeat/フォルダ下にfilebeat.ymlがある。  
-
 基本的に、「データ取得」「データ送信」の設定はこのファイルで行う。  
-
 基本的にはであるが、Filebeat.ymlで設定できることは「データ取得」「データ送信」に限らずめちゃめちゃある→https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html  
 
 ありすぎて、説明しきれないので、ひとまず「データ取得」「データ送信」に絞って説明する。  
@@ -86,11 +84,48 @@ filebeat.inputs:
 ```
 
 上記の説明があるように、「filebeat.inputs」部分でデータ取得に関する設定を行う。  
-<br>  
+
 「type: filestream」で入力になるものを決める。  
 filestreamの場合は、指定したフォルダから指定したファイルを取得する設定になる。  
-その下の「my-filestream-id」「enabled: false」「paths:」の設定はtypeが変われば変更される。   
-<br>
+その下の「my-filestream-id」「enabled: false」「paths:」の設定はfilestream特有の設定になる。
+https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-filestream.html  
 
+filestream以外にもtypeで指定できるものは色々ある。  
+https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html  
+例えば、AWSのS3を入力に出来たり、HTTPのRESTが入力になったり、、、（私がfilestreamとlogしか試せてない）  
 
+「id: my-filestream-id」は、リファレンスの説明によると以下の通り。  
+```
+入力IDを変更すると、ファイルの状態が失われ、最初から読み取られるため、データが重複する可能性があります。
+```
+ログをどこまで読み込んだかを記録するために必要なID？  
+「my-filestream-id」はなんでもいいっぽい  
 
+「enable: false」はこのfilestreamの設定を使うか使わないかの設定  
+falseのままだとこの設定は読み込まれない  
+
+「paths:」部分に、具体的な、「指定したフォルダから指定したファイルを取得する」の設定をする  
+/var/log/*.log←だと/var/logフォルダ下のファイル名が.logで終わるファイルを読み込む。という意味になる  
+
+上記で説明した「id」「enable」「path」はfilestreamのオプション設定といい  
+このオプション設定項目は他にも様々ある。詳しくは公式リファレンスを参照。  
+
+<h2 id="content6">「データ送信」設定</h2>  
+
+filebeat.ymlのfilebeat.outputs部分が「データ取得」に関する設定である  
+filebeat.ymlのデフォルトは以下のようになっている。  
+（コメント部分が多いため、コメント部分を省略する）  
+
+```yaml
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["localhost:9200"]
+
+  # Protocol - either `http` (default) or `https`.
+  #protocol: "https"
+
+  # Authentication credentials - either API key or username/password.
+  #api_key: "id:api_key"
+  #username: "elastic"
+  #password: "changeme"
+```
