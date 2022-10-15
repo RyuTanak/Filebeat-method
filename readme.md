@@ -154,10 +154,21 @@ Filebeatの各設定ファイルは以下の構成になっています。
 (※LinuxとWindowsで構成が異なります。今回はLinuxのフォルダ構成を示します)  
 
 ├etc  
-　├  
+│└filebeat  
+│　├filebeat.yml  
+│　└modules.d  
+│　　├activemq.yml.disabled  
+│　　├・・・  
+├var  
+│└log  
+│　└filebeat  
+├usr  
+│└share  
+│　└filebeat  
+│　　└module  
+│　　　└・・・
 
-
-
+この章では/etc/filebeat/filebeat.ymlファイルしか使いません。 
 
 <h2 id="content8">動作確認①（ファイル→ファイル）</h2>  
 
