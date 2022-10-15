@@ -129,3 +129,21 @@ output.elasticsearch:
   #username: "elastic"
   #password: "changeme"
 ```
+
+「output.elasticsearch」でElasticsearchへの出力を指定します。  
+このoutput.~~は何種類かあり、output.fileとすれば、ローカルファイルにデータを落とすこともできます。  
+その他種類・詳細は→https://www.elastic.co/guide/en/beats/filebeat/master/configuring-output.html  
+
+「hosts: ["localhost:9200"]」で、Elasticserchの接続先を指定します。  
+"接続先アドレス:ポート"で書きます。接続策アドレスは、ElasticsearchのエンドポイントのURLでも指定可能です。  
+ポートの9200はElasticsearchのデフォルトで設定されているモノです。  
+
+「protocol: "https」はElasticsearchへ接続するときの通信方式を指定します。  
+デフォルトはhttpです。  
+httpsであれば、その下の「#api_key: "id:api_key"」などを指定してください。  
+「username: "elastic"」「password: "changeme"」はElasticsearchのユーザ名とパスワードです。  
+
+
+
+
+
