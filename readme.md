@@ -1,11 +1,14 @@
-# Filebeatの使いかた  
+# Filebeatの使いかた(1章)  
 業務で得た知識を含め、Filebeatの使いかたを記載していく  
 ## 目次  
 [Elastic Stackについて](#content1)  
 [Filebeatの概要](#content2)  
 [インストール方法](#content3)  
 [設定ファイル](#content4)  
-[「データ取得」設定](#content5)  
+[「データ取得」設定](#content5) 
+[「データ送信」設定](#content6)  
+[設定ファイルのフォルダ構成](#content7)  
+[動作確認①（ファイル→ファイル）](#content8)  
 
 <h2 id="content1">Elastic Stackについて</h2>  
 Elastic社が提供しているプロダクトは大きく4つ  
@@ -143,7 +146,27 @@ output.elasticsearch:
 httpsであれば、その下の「#api_key: "id:api_key"」などを指定してください。  
 「username: "elastic"」「password: "changeme"」はElasticsearchのユーザ名とパスワードです。  
 
+output.elasticsearchのリファレンス→https://www.elastic.co/guide/en/beats/filebeat/master/elasticsearch-output.html  
+
+<h2 id="content7">設定ファイルのフォルダ構成</h2>  
+
+Filebeatの各設定ファイルは以下の構成になっています。  
+(※LinuxとWindowsで構成が異なります。今回はLinuxのフォルダ構成を示します)  
+
+├etc  
+　├  
 
 
 
 
+<h2 id="content8">動作確認①（ファイル→ファイル）</h2>  
+
+実際にFilebeatを動かしてみましょう。  
+まずは簡単なところから。  
+指定したログファイル→指定したファイルに落とすという動作確認です。  
+(※Amazon Linuxで動かしています。)  
+filebeat.ymlに以下の設定をします。  
+
+```yaml
+
+```
