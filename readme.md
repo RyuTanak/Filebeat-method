@@ -5,10 +5,11 @@
 [Filebeatの概要](#content2)  
 [インストール方法](#content3)  
 [設定ファイル](#content4)  
-[「データ取得」設定](#content5) 
-[「データ送信」設定](#content6)  
-[設定ファイルのフォルダ構成](#content7)  
+[設定ファイルのフォルダ構成](#content5)  
+[「データ取得」設定](#content6)  
+[「データ送信」設定](#content7)  
 [動作確認①（ファイル→ファイル）](#content8)  
+[動作確認①（ファイル→Elasticsearch）](#content9)
 
 <h2 id="content1">Elastic Stackについて</h2>  
 Elastic社が提供しているプロダクトは大きく4つ  
@@ -63,7 +64,30 @@ Filebeatの機能は大きく3つある
 
 ありすぎて、説明しきれないので、ひとまず「データ取得」「データ送信」に絞って説明する。  
 
-<h2 id="content5">「データ取得」設定</h2>  
+<h2 id="content5">設定ファイルのフォルダ構成</h2>  
+
+Filebeatの各設定ファイルは以下の構成になっています。  
+(※LinuxとWindowsで構成が異なります。今回はLinuxのフォルダ構成を示します)  
+
+├etc  
+│└filebeat  
+│　├filebeat.yml  
+│　└modules.d  
+│　　├activemq.yml.disabled  
+│　　├・・・  
+├var  
+│└log  
+│　└filebeat  
+├usr  
+│└share  
+│　└filebeat  
+│　　└module  
+│　　　└・・・
+
+この章では/etc/filebeat/filebeat.ymlファイルしか使いません。 
+
+
+<h2 id="content6">「データ取得」設定</h2>  
 
 filebeat.ymlのfilebeat.inputs部分が「データ取得」に関する設定である  
 filebeat.ymlのデフォルトは以下のようになっている。  
@@ -113,7 +137,7 @@ falseのままだとこの設定は読み込まれない
 上記で説明した「id」「enable」「path」はfilestreamのオプション設定といい  
 このオプション設定項目は他にも様々ある。詳しくは公式リファレンスを参照。  
 
-<h2 id="content6">「データ送信」設定</h2>  
+<h2 id="content7">「データ送信」設定</h2>  
 
 filebeat.ymlのfilebeat.outputs部分が「データ取得」に関する設定である  
 filebeat.ymlのデフォルトは以下のようになっている。  
@@ -148,27 +172,6 @@ httpsであれば、その下の「#api_key: "id:api_key"」などを指定し�
 
 output.elasticsearchのリファレンス→https://www.elastic.co/guide/en/beats/filebeat/master/elasticsearch-output.html  
 
-<h2 id="content7">設定ファイルのフォルダ構成</h2>  
-
-Filebeatの各設定ファイルは以下の構成になっています。  
-(※LinuxとWindowsで構成が異なります。今回はLinuxのフォルダ構成を示します)  
-
-├etc  
-│└filebeat  
-│　├filebeat.yml  
-│　└modules.d  
-│　　├activemq.yml.disabled  
-│　　├・・・  
-├var  
-│└log  
-│　└filebeat  
-├usr  
-│└share  
-│　└filebeat  
-│　　└module  
-│　　　└・・・
-
-この章では/etc/filebeat/filebeat.ymlファイルしか使いません。 
 
 <h2 id="content8">動作確認①（ファイル→ファイル）</h2>  
 
@@ -179,5 +182,41 @@ Filebeatの各設定ファイルは以下の構成になっています。
 filebeat.ymlに以下の設定をします。  
 
 ```yaml
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/*.log
+output.file:
+  path: "/tmp/filebeat"
+  filename: filebeat
+```
+ファイルを編集した後、サービスの再起動を行う。  
+```
+sudo systemctl restart filebeat.service
+```
+設定ファイルの記述が正しいかコマンドでチェックできる。  
+```
+sudo filebeat test config
+```
+/var/logフォルダ下にtest1.logを配置する。  
+テキストの中身は自由に記述。  
+filebeatはデフォルトで1秒周期で起動するため、ファイルを置いたら  
+/tmp/filebeatフォルダ下にfilebeatテキストが出力される。  
 
+<h2 id="content8">動作確認②（ファイル→Elasticsearch）</h2>  
+
+filebeat.ymlに以下の設定をします。  
+※前提として、同じネットワーク内にElasticsearchがあること  
+
+```yaml
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/*.log
+output.elasticsearch:
+  hosts: ["localhost:9200"]
+  username: "filebeat_writer"
+  password: "YOUR_PASSWORD"
 ```
