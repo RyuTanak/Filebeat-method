@@ -50,6 +50,7 @@ Filebeatの機能は大きく3つある
 また、「データ」とは、ログのデータのことを指す（業務でログデータを扱っていたため）。
 
 <h2 id="content3">インストール方法</h2>  
+
 インストール方法といっても、様々な方法がある。[（公式リファレンス）](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html)   
 
 また、WindowsやLinuxなど様々なOSにインストールもできる  
