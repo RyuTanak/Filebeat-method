@@ -9,7 +9,7 @@
 [「データ取得」設定](#content6)  
 [「データ送信」設定](#content7)  
 [動作確認①（ファイル→ファイル）](#content8)  
-[動作確認①（ファイル→Elasticsearch）](#content9)
+[動作確認②（ファイル→Elasticsearch）](#content9)
 
 <h2 id="content1">Elastic Stackについて</h2>  
 Elastic社が提供しているプロダクトは大きく4つ  
@@ -204,7 +204,7 @@ sudo filebeat test config
 filebeatはデフォルトで1秒周期で起動するため、ファイルを置いたら  
 /tmp/filebeatフォルダ下にfilebeatテキストが出力される。  
 
-<h2 id="content8">動作確認②（ファイル→Elasticsearch）</h2>  
+<h2 id="content9">動作確認②（ファイル→Elasticsearch）</h2>  
 
 filebeat.ymlに以下の設定をします。  
 ※前提として、同じネットワーク内にElasticsearchがあること  
@@ -220,3 +220,31 @@ output.elasticsearch:
   username: "filebeat_writer"
   password: "YOUR_PASSWORD"
 ```
+登録先のindexを指定していないため、index名はデフォルト値になります。  
+デフォルト値：filebeat-7.17.7-2022-11-03-000001  
+
+
+<h2 id="content10">動作確認③（ファイル→Elasticsearch）</h2>  
+
+動作確認②に加え、データ登録先のindexを指定する方法を示します。  
+
+filebeat.ymlに以下の設定をします。  
+
+```yaml
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/*.log
+setup.template.name: "filebeat"
+setup.template.pattern: "filebeat-*"
+setup.ilm.enabled: false
+output.elasticsearch:
+  hosts: ["localhost:9200"]
+  username: "filebeat_writer"
+  password: "YOUR_PASSWORD"
+  index: "filebeat-index"
+```
+「filebeat-index」というindexにデータが登録される。  
+
+
