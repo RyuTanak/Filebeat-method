@@ -205,6 +205,9 @@ sudo filebeat test config
 filebeatはデフォルトで1秒周期で起動するため、ファイルを置いたら  
 /tmp/filebeatフォルダ下にfilebeatテキストが出力される。  
 
+filebeatのコマンド操作については、以下の公式リファレンスに乗っている。  
+https://www.elastic.co/guide/en/beats/filebeat/7.17/command-line-options.html  
+
 <h2 id="content9">動作確認②（ファイル→Elasticsearch）</h2>  
 
 filebeat.ymlに以下の設定をします。  
