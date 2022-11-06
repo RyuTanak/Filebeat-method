@@ -1,5 +1,5 @@
 # Filebeatの使いかた(1章)  
-業務で得た知識を含め、Filebeatの使いかたを記載していく  
+業務で得た知識を含め、Filebeatの使いかたを記載していく。  
 ## 目次  
 [Elastic Stackについて](#content1)  
 [Filebeatの概要](#content2)  
@@ -10,6 +10,7 @@
 [「データ送信」設定](#content7)  
 [動作確認①（ファイル→ファイル）](#content8)  
 [動作確認②（ファイル→Elasticsearch）](#content9)
+[動作確認③（ファイル→Elasticsearch(index指定)）](#content9)
 
 <h2 id="content1">Elastic Stackについて</h2>  
 Elastic社が提供しているプロダクトは大きく4つ  
