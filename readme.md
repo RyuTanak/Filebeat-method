@@ -9,8 +9,8 @@
 [「データ取得」設定](#content6)  
 [「データ送信」設定](#content7)  
 [動作確認①（ファイル→ファイル）](#content8)  
-[動作確認②（ファイル→Elasticsearch）](#content9)
-[動作確認③（ファイル→Elasticsearch(index指定)）](#content9)
+[動作確認②（ファイル→Elasticsearch）](#content9)  
+[動作確認③（ファイル→Elasticsearch(index指定)）](#content10)  
 
 <h2 id="content1">Elastic Stackについて</h2>  
 Elastic社が提供しているプロダクトは大きく4つ  
@@ -60,7 +60,7 @@ Filebeatの機能は大きく3つある
 
 インストールを行うと、/etc/filebeat/フォルダ下にfilebeat.ymlがある。  
 基本的に、「データ取得」「データ送信」の設定はこのファイルで行う。  
-基本的にはであるが、Filebeat.ymlで設定できることは「データ取得」「データ送信」に限らずめちゃめちゃある→https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html  
+基本的にはであるが、filebeat.ymlで設定できることは「データ取得」「データ送信」に限らずめちゃめちゃある→https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html  
 
 ありすぎて説明しきれないので、ひとまず「データ取得」「データ送信」に絞って説明する。  
 
@@ -249,7 +249,7 @@ output.elasticsearch:
   index: "filebeat-index"
 ```
 「filebeat-index」というindexにデータが登録される。  
-![discover2](./image/discover1.png)  
+![discover2](./image/discover2.png)  
 
 <h3>経験談</h3>  
   
