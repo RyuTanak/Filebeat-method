@@ -55,7 +55,6 @@ Filebeatの機能は大きく3つある
 また、WindowsやLinuxなど様々なOSにインストールもできる  
 (Filebeatの参考サイトを見ていると、LinuxでFilebeatを使っているのをよく見る)  
 今回はCentOS（Linux）へのインストールを行う。  
-※VMWareで用意する予定であるが、自分のノートPCのメモリが8Gのため、厳しい、、、  
 
 <h2 id="content4">設定ファイル</h2>  
 
@@ -63,7 +62,7 @@ Filebeatの機能は大きく3つある
 基本的に、「データ取得」「データ送信」の設定はこのファイルで行う。  
 基本的にはであるが、Filebeat.ymlで設定できることは「データ取得」「データ送信」に限らずめちゃめちゃある→https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html  
 
-ありすぎて、説明しきれないので、ひとまず「データ取得」「データ送信」に絞って説明する。  
+ありすぎて説明しきれないので、ひとまず「データ取得」「データ送信」に絞って説明する。  
 
 <h2 id="content5">設定ファイルのフォルダ構成</h2>  
 
@@ -179,7 +178,6 @@ output.elasticsearchのリファレンス→https://www.elastic.co/guide/en/beat
 実際にFilebeatを動かしてみましょう。  
 まずは簡単なところから。  
 指定したログファイル→指定したファイルに落とすという動作確認です。  
-(※Amazon Linuxで動かしています。)  
 filebeat.ymlに以下の設定をします。  
 
 ```yaml
