@@ -216,7 +216,7 @@ filebeat.inputs:
 - type: log
   enabled: true
   paths:
-    - /var/log/*.log
+    - /var/log/test*.log
 output.elasticsearch:
   hosts: ["localhost:9200"]
   username: "filebeat_writer"
@@ -237,7 +237,7 @@ filebeat.inputs:
 - type: log
   enabled: true
   paths:
-    - /var/log/*.log
+    - /var/log/test/*.log
 setup.template.name: "filebeat"
 setup.template.pattern: "filebeat-*"
 setup.ilm.enabled: false
@@ -261,3 +261,4 @@ Connection marked as failed because the onConnect callback failed: Elasticsearch
 
 Elasticsearchのバージョンが古いから新しくしろ　というエラー  
 FilebeatとElasticsearchではバージョンを揃えないといけないみたい…  
+
