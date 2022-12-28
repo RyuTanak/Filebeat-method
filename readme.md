@@ -249,7 +249,8 @@ output.elasticsearch:
 ```
 「filebeat-index」というindexにデータが登録される。  
 
-※経験談  
+<h3>経験談</h3>  
+  
 Filebeatのバージョンが8.5~~  
 Elasticsearchのバージョンが7.17.~~  
 でFilebeat→Elasticsearchの導通確認を行った際、以下のエラーが出力した。  
