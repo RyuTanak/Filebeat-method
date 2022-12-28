@@ -239,8 +239,8 @@ filebeat.inputs:
   enabled: true
   paths:
     - /var/log/test/*.log
-setup.template.name: "filebeat"
-setup.template.pattern: "filebeat-*"
+setup.template.name: "tokyo"
+setup.template.pattern: "tokyo-*"
 setup.ilm.enabled: false
 output.elasticsearch:
   hosts: ["localhost:9200"]
