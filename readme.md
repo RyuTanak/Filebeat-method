@@ -184,7 +184,7 @@ filebeat.ymlに以下の設定をします。
 filebeat.inputs:
 - type: log
   enabled: true
-  paths:
+  paths:sud
     - /var/log/*.log
 output.file:
   path: "/tmp/filebeat"
@@ -192,7 +192,7 @@ output.file:
 ```
 ファイルを編集した後、サービスの再起動を行う。  
 ```
-sudo systemctl restart filebeat.service
+sudo systemctl restart filebeat
 ```
 設定ファイルの記述が正しいかコマンドでチェックできる。  
 ```
@@ -201,7 +201,7 @@ sudo filebeat test config
 /var/logフォルダ下にtest1.logを配置する。  
 テキストの中身は自由に記述。  
 filebeatはデフォルトで1秒周期で起動するため、ファイルを置いたら  
-/tmp/filebeatフォルダ下にfilebeatテキストが出力される。  
+/tmp/filebeatフォルダ下に「filebeat~~」というテキストが出力される。  
 
 filebeatのコマンド操作については、以下の公式リファレンスに乗っている。  
 https://www.elastic.co/guide/en/beats/filebeat/7.17/command-line-options.html  
@@ -249,4 +249,14 @@ output.elasticsearch:
 ```
 「filebeat-index」というindexにデータが登録される。  
 
+※経験談  
+Filebeatのバージョンが8.5~~  
+Elasticsearchのバージョンが7.17.~~  
+でFilebeat→Elasticsearchの導通確認を行った際、以下のエラーが出力した。  
 
+```
+Connection marked as failed because the onConnect callback failed: Elasticsearch is too old. Please upgrade the instance. If you would like to connect to older instances set output.elasticsearch.allow_older_versions to true
+```
+
+Elasticsearchのバージョンが古いから新しくしろ　というエラー  
+FilebeatとElasticsearchではバージョンを揃えないといけないみたい…  
