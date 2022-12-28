@@ -216,7 +216,7 @@ filebeat.inputs:
 - type: log
   enabled: true
   paths:
-    - /var/log/test*.log
+    - /var/log/test/*.log
 output.elasticsearch:
   hosts: ["localhost:9200"]
   username: "filebeat_writer"
@@ -224,7 +224,7 @@ output.elasticsearch:
 ```
 登録先のindexを指定していないため、index名はデフォルト値になります。 
 ※インデックスパターンを登録しないとdiscover画面には出てきません。  
-![discover1](./image/discover1.png) 
+![discover1](./image/discover1.png)  
 
 
 <h2 id="content10">動作確認③（ファイル→Elasticsearch）</h2>  
@@ -249,6 +249,7 @@ output.elasticsearch:
   index: "filebeat-index"
 ```
 「filebeat-index」というindexにデータが登録される。  
+![discover2](./image/discover1.png)  
 
 <h3>経験談</h3>  
   
