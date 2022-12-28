@@ -222,8 +222,9 @@ output.elasticsearch:
   username: "filebeat_writer"
   password: "YOUR_PASSWORD"
 ```
-登録先のindexを指定していないため、index名はデフォルト値になります。  
-デフォルト値：filebeat-7.17.7-2022-11-03-000001  
+登録先のindexを指定していないため、index名はデフォルト値になります。 
+※インデックスパターンを登録しないとdiscover画面には出てきません。  
+![discover1](./image/discover1.png) 
 
 
 <h2 id="content10">動作確認③（ファイル→Elasticsearch）</h2>  
